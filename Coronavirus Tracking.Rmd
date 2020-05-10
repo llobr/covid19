@@ -1,0 +1,85 @@
+---
+title: "Coronavirus Tracking"
+author: "Laura Obregon"
+date: "May 9, 2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+```
+
+** LOADING ORIGINAL DATA SETS HERE**
+```{r}
+nyt <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv", stringsAsFactors = FALSE)
+
+nyt$date <- as.Date(nyt$date, format= "%Y-%m-%d")
+```
+
+
+```{r}
+theme_set(theme_minimal())
+
+allegheny <- nyt%>%
+  filter(county == "Allegheny", state == "Pennsylvania")
+
+a <- ggplot(allegheny, aes(date)) + 
+  geom_line(aes(y = cases, colour = "Total Cases")) +
+  geom_line(aes(y = deaths, colour = "Total Deaths"))+  
+  theme_minimal()+
+  scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+
+  ggtitle("Cases and Deaths in Allegheny County")
+ggplotly(a)
+
+
+jefferson <- nyt%>%
+  filter(county == "Jefferson", state == "Alabama")
+
+j <- ggplot(jefferson, aes(date)) + 
+  geom_line(aes(y = cases, colour = "Total Cases")) +
+  geom_line(aes(y = deaths, colour = "Total Deaths"))+ 
+  theme_minimal()+
+  scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+
+  ggtitle("Cases and Deaths in Jefferson County")
+ggplotly(j)
+
+
+miamidade <- nyt%>%
+  filter(county == "Miami-Dade", state == "Florida")
+
+m <- ggplot(miamidade, aes(date)) + 
+  geom_line(aes(y = cases, colour = "Total Cases")) +
+  geom_line(aes(y = deaths, colour = "Total Deaths"))+  
+  theme_minimal()+
+  scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+
+  ggtitle("Cases and Deaths in Miami-Dade County")
+ggplotly(m)
+
+
+broward <- nyt%>%
+  filter(county == "Broward", state == "Florida")
+
+b <- ggplot(broward, aes(date)) + 
+  geom_line(aes(y = cases, colour = "Total Cases")) +
+  geom_line(aes(y = deaths, colour = "Total Deaths"))+  
+  theme_minimal()+
+  scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+
+  ggtitle("Cases and Deaths in Broward County")
+ggplotly(b)
+
+
+suffolk <- nyt%>%
+  filter(county == "Suffolk", state == "Massachusetts")
+
+s <- ggplot(suffolk, aes(date)) + 
+  geom_line(aes(y = cases, colour = "Total Cases")) +
+  geom_line(aes(y = deaths, colour = "Total Deaths"))+  
+  theme_minimal()+
+  scale_x_date(date_breaks = "1 week", date_labels = "%b %d")+
+  ggtitle("Cases and Deaths in Suffolk County")
+ggplotly(s)
+
+```
